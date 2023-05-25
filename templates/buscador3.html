@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Buscador{% endblock %}
+{% block content %}
+<div class="contact_section layout_padding">
+   <div class="container">
+      <h1 class="contact_title">Listado de Torneos</h1>
+      <div class="contact_section_2">
+         <form method="POST" action="/buscador3">
+            <div class="mail_main">
+               <div class="row">
+                  <div class="col-md-12">
+                     <ul>
+                        {% if tournaments %}
+                           {% for tournament in tournaments %}
+                              <p> </p>
+                              <li>{{ tournament.title() }}</li>
+                           {% endfor %}
+                        {% else %}
+                           <li>No hay torneos disponibles.</li>
+                        {% endif %}
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </form>
+         <a href="/menu">Volver al menú</a>
+      </div>
+   </div>
+</div>
+{% endblock %}

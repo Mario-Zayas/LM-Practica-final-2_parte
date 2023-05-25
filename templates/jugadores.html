@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}JUGADORES{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label class="altura">
+                    <h3 class="post-title">Top Jugadores:</h3>
+                </label>
+                <ul>
+                    {% if jugadores %}
+                        {% for jugador in jugadores %}
+                            <p>Tag: {{ jugador.tag }}</p>
+                            <p>Nombre: {{ jugador.name }}</p>
+                            <p>expLevel: {{ jugador.expLevel }}</p>
+                            <p>Trofeos: {{ jugador.trophies }}</p>
+                            <p>Ranking: {{ jugador.rank }}</p>
+                            <p> -------------------------------------------
+                        {% endfor %}
+                    {% else %}
+                        <li>No se encontraron jugadores.</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <a href="/menu">Volver al menú</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

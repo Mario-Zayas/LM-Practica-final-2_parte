@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Buscador{% endblock %}
+{% block content %}
+<div class="contact_section layout_padding">
+   <div class="container">
+      <h1 class="contact_title">Buscador de Jugadores</h1>
+      <div class="contact_section_2">
+         <p> Ejemplos: 2L2V9U09, 2JRLG8PUQ, 2UJ2QQJJP, R90PRV0PY, 2Q2QCYLPR </p>
+         <form method="POST" action="/buscador1">
+            <div class="mail_main">
+               <div class="row">
+                  <div class="col-md-12">
+                     <input type="text" class="mail_text" placeholder="Buscador" name="tag">
+                     <input type="submit" value="Buscar jugador" />
+                  </div>
+               </div>
+            </div>
+         </form>
+         <a href="/menu">Volver al menú</a>
+      </div>
+   </div>
+</div>
+<div class="container">
+   <div class="player_info">
+
+      <h2>Información del jugador:</h2>
+      {% if jugador %}
+      <p>Tag: {{ jugador.tag }}</p>
+      <p>Nombre: {{ jugador.name }}</p>
+      <p>Nivel de experiencia: {{ jugador.expLevel }}</p>
+      <p>Trofeos: {{ jugador.trophies }}</p>
+      <p>Mejores trofeos: {{ jugador.bestTrophies }}</p>
+      <p>Victorias: {{ jugador.wins }}</p>
+      <p>Derrotas: {{ jugador.losses }}</p>
+      <p>Conteo de batallas: {{ jugador.battleCount }}</p>
+      <p>Victorias de tres coronas: {{ jugador.threeCrownWins }}</p>
+      <p>Cartas ganadas en desafíos: {{ jugador.challengeCardsWon }}</p>
+      <p>Máximo de victorias en desafíos: {{ jugador.challengeMaxWins }}</p>
+      <p>Cartas ganadas en torneos: {{ jugador.tournamentCardsWon }}</p>
+      <p>Conteo de batallas en torneos: {{ jugador.tournamentBattleCount }}</p>
+      <p>Donaciones: {{ jugador.donations }}</p>
+      <p>Donaciones recibidas: {{ jugador.donationsReceived }}</p>
+      <p>Total de donaciones: {{ jugador.totalDonations }}</p>
+      <p>Victorias en el día de guerra: {{ jugador.warDayWins }}</p>
+      <p>Cartas de clan recopiladas: {{ jugador.clanCardsCollected }}</p>
+      {% endif %}
+   </div>
+</div>
+{% endblock %}
+

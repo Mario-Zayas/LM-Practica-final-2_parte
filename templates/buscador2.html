@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Buscador{% endblock %}
+{% block content %}
+<div class="contact_section layout_padding">
+   <div class="container">
+      <h1 class="contact_title">Buscador de Clanes</h1>
+      <div class="contact_section_2">
+         <form method="POST" action="/buscador2">
+            <div class="mail_main">
+               <div class="row">
+                  <div class="col-md-12">
+                     <input type="text" class="mail_text" placeholder="Buscador" name="clan">
+                     <input type="submit" value="Buscar clan" />
+                  </div>
+               </div>
+            </div>
+         </form>
+         <a href="/menu">Volver al menú</a>
+      </div>
+      <div class="clan_info">
+         <h2>Detalles del clan:</h2>
+         {% if clan %}
+         <ul>
+            <li>
+               <p>Clan Tag: {{ clan.tag }}</p>
+               <p>Clan Name: {{ clan.name }}</p>
+               <p>Type: {{ clan.type }}</p>
+               <p>Badge ID: {{ clan.badgeId }}</p>
+               <p>Clan Score: {{ clan.clanScore }}</p>
+               <p>Members: {{ clan.members }}</p>
+               <p>Required Trophies: {{ clan.requiredTrophies }}</p>
+               <p>Clan Chest Level: {{ clan.clanChestLevel }}</p>
+               <p>Clan Chest Max Level: {{ clan.clanChestMaxLevel }}</p>
+               <p>Clan War Trophies: {{ clan.clanWarTrophies }}</p>
+               <p>Donations Per Week: {{ clan.donationsPerWeek }}</p>
+               {% if clan.location %}
+               <p>Location:</p>
+               <p>Country Code: {{ clan.location.countryCode }}</p>
+               <p>Country ID: {{ clan.location.id }}</p>
+               <p>Is Country: {{ clan.location.isCountry }}</p>
+               <p>Country Name: {{ clan.location.name }}</p>
+               {% endif %}
+            </li>
+         </ul>
+         {% else %}
+         {% if Error %}
+         <p>{{ Error }}</p>
+         {% endif %}
+         {% endif %}
+      </div>
+   </div>
+</div>
+{% endblock %}

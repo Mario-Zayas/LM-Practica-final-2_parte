@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}CLANES{% endblock %}
+{% block content %}
+      <div class="container">
+            <div class="row mt-3">
+                  <div class="col-md-6">
+                     <label class="altura">
+                        <h3 class="post-title">Top Clanes:</h3>
+                     </label>
+                     <ul>
+                        {% if clans %}
+                            {% for clan in clans %}
+                                <p>Tag: {{ clan.tag }}</p>
+                                <p>Nombre: {{ clan.name }}</p>
+                                <p>Ranking: {{ clan.rank }}</p>
+                                <p>Antiguo Rank: {{ clan.previousRank }}</p>
+                                <p> -------------------------------------------
+                            {% endfor %}
+                        {% else %}
+                            <li>No se encontraron clanes.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <a href="/menu">Volver al menú</a>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+
+
