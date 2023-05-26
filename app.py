@@ -16,12 +16,13 @@ def menu():
 @app.route('/buscador1', methods=['GET', 'POST'])
 def buscador1():
     jugador = None
+    resultado= None
     url_base = "https://api.clashroyale.com/v1/"
-    key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjFmN2U4ZTJiLTljMDgtNGNhNC05NzEwLWJiZDE4NmViNjNjYSIsImlhdCI6MTY4NTA0MDU1OCwic3ViIjoiZGV2ZWxvcGVyL2FhY2Q5MTVjLTNmMTktNzY4Ni05NmRmLWVlM2U1OWVhODdjYSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI4MC4zMS43Mi4xMDUiXSwidHlwZSI6ImNsaWVudCJ9XX0.BkRZSsJMMZY5g0cPVjb0MtmJxeKc2AkRsw0KXvVN4Q6_UtV9rCbXa0PfOMoW2CQjjSINNnIWmRmGMgCNHw-k7w'
+    key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjUxYTcxYWU2LTA2MDgtNGYwOC04NjY1LTdmMzNhZGU5YjU2OCIsImlhdCI6MTY4NTA4MzcwOSwic3ViIjoiZGV2ZWxvcGVyL2FhY2Q5MTVjLTNmMTktNzY4Ni05NmRmLWVlM2U1OWVhODdjYSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNTguOTkuMS4yNCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.WxIJcZgO43QHOwM_6ugNy5E6ohqT2BSEPBGMQAh6qag9JJztVcFZZ8hG2I3cJTWBDnfncgp9wgfZiPfozOweXg'
     tag = request.form.get("tag")
 
     if tag is None:
-        resultado = "resultado: Invalid Tag"
+        resultado = "resultado:  Tag no valido"
         return render_template('buscador1.html', jugador=None, resultado=resultado)
 
     url = url_base + "players/%23" + tag
@@ -31,19 +32,6 @@ def buscador1():
     if r.status_code == 200:
         datos = r.json()
         jugador = datos 
-        parametros = request.form.get("parametros")
-        if parametros == "wins":
-            resultado = "Wins: " + str(datos.get("wins"))
-        elif parametros == "losses":
-            resultado = "Losses: " + str(datos.get("losses"))
-        elif parametros == "threeCrownWins":
-            resultado = "Three Crown Wins: " + str(datos.get("threeCrownWins"))
-        else:
-            resultado = "Invalid parameter."
-    else:
-        resultado = f'Jugador no encontrado. Prueba con otro código'
-        return render_template("buscador2.html", resultado=resultado)
-
     return render_template('buscador1.html', jugador=jugador, resultado=resultado)
 
 
