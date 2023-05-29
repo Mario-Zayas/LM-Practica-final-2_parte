@@ -19,3 +19,17 @@ Posibles mejoras
     ¿Qué mejoras crees que has añadido a tu aplicación?
     La URL del repositorio git
     La URL de la página desplegada en una plataforma como servicio 
+
+En este proyecto es la versión aplicación del programa de Clash Royale. Tratará de lo siguiente:
+
+    Tendrá 8 páginas más el base.html.
+    En la página inicio tendrá 1 imagen la cual te redireccionará a otra pagina con 3 imagenes y titulos distintos.
+    Tendrá 2 peticiones distintas entre sí.
+    Una hará una petición a un buscador que filtra por código de jugador y nos muestra todos los detalles del jugador     solicitado. No es necesario el uso de "#".
+    La otra hará una petición a un buscador de clanes por el nombre y mostrará cada detalle del clan, asi como donde       se originó. Tenga en cuenta que hay muchos clanes con el mismo nombre, por lo que resultará dificil encontrar el       que usted quiere.
+    La ultima pagina lo que hará será buscar y listar de manera automatica todos los torneos.
+    Ademas tendrá 3 paginas web en las cuales se mostrarán los TOP 1000 de Jugadores y Clanes asi como el TOP de           torneos.
+
+Es necesario que sepa que debe ingresar el token que se encuentra en esta página: https://developer.clashroyale.com/#/.
+
+Debes registrarte o iniciar sesión para poder acceder a la creación de claves, una vez creada lo unico que debes hacer es cambiar el token ("key") de "app.py" por el tuyo.
