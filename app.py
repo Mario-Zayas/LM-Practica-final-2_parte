@@ -82,14 +82,12 @@ def buscador3():
         data = r.json()
         globaltournaments = data.get("items")
         if globaltournaments:
-            tournaments = [tournament.get("title") for tournament in globaltournaments]
+           torneos = [torneo.get("title") for torneo in globaltournaments]
         else:
-            tournaments = None
+           torneos = None
     else:
-        tournaments = None
-        print("resultado en la búsqueda:", r.status_code)
-
-    return render_template('buscador3.html', tournaments=tournaments)
+       torneos = None
+    return render_template('buscador3.html',torneos=torneos)
 
 
 @app.route('/jugadores', methods=['GET', 'POST'])
