@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 import requests
 import os
 import json
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -32,6 +31,10 @@ def buscador1():
     if r.status_code == 200:
         datos = r.json()
         jugador = datos 
+    else:
+        error = f'Jugador no encontrado. Prueba con otro código.'
+        return render_template("buscador1.html", error=error)
+    
     return render_template('buscador1.html', jugador=jugador, resultado=resultado)
 
 
@@ -41,7 +44,7 @@ def buscador1():
 def buscador2():
     clans = None
     url_base = "https://api.clashroyale.com/v1/"
-    key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjFmN2U4ZTJiLTljMDgtNGNhNC05NzEwLWJiZDE4NmViNjNjYSIsImlhdCI6MTY4NTA0MDU1OCwic3ViIjoiZGV2ZWxvcGVyL2FhY2Q5MTVjLTNmMTktNzY4Ni05NmRmLWVlM2U1OWVhODdjYSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI4MC4zMS43Mi4xMDUiXSwidHlwZSI6ImNsaWVudCJ9XX0.BkRZSsJMMZY5g0cPVjb0MtmJxeKc2AkRsw0KXvVN4Q6_UtV9rCbXa0PfOMoW2CQjjSINNnIWmRmGMgCNHw-k7w'  
+    key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjUxYTcxYWU2LTA2MDgtNGYwOC04NjY1LTdmMzNhZGU5YjU2OCIsImlhdCI6MTY4NTA4MzcwOSwic3ViIjoiZGV2ZWxvcGVyL2FhY2Q5MTVjLTNmMTktNzY4Ni05NmRmLWVlM2U1OWVhODdjYSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNTguOTkuMS4yNCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.WxIJcZgO43QHOwM_6ugNy5E6ohqT2BSEPBGMQAh6qag9JJztVcFZZ8hG2I3cJTWBDnfncgp9wgfZiPfozOweXg'  
     clan = request.form.get("clan")
 
     if clan is None:
@@ -59,10 +62,8 @@ def buscador2():
         if clans:
             clan = clans[0]
         else:
-            resultado = f'Jugador no encontrado. Prueba con otro código'
-            return render_template("buscador2.html", resultado=resultado)
-    else:
-        resultado = "resultado al buscar: " + str(r.status_code)
+            error = f'Clan no encontrado. Prueba con otro nombre.'
+            return render_template("buscador2.html", error=error)
 
     return render_template('buscador2.html', clans=clans, clan=clan, resultado=resultado)
 
@@ -72,7 +73,7 @@ def buscador2():
 @app.route('/buscador3', methods=['GET', 'POST'])
 def buscador3():
     url_base = "https://api.clashroyale.com/v1/"
-    key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjFmN2U4ZTJiLTljMDgtNGNhNC05NzEwLWJiZDE4NmViNjNjYSIsImlhdCI6MTY4NTA0MDU1OCwic3ViIjoiZGV2ZWxvcGVyL2FhY2Q5MTVjLTNmMTktNzY4Ni05NmRmLWVlM2U1OWVhODdjYSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI4MC4zMS43Mi4xMDUiXSwidHlwZSI6ImNsaWVudCJ9XX0.BkRZSsJMMZY5g0cPVjb0MtmJxeKc2AkRsw0KXvVN4Q6_UtV9rCbXa0PfOMoW2CQjjSINNnIWmRmGMgCNHw-k7w'
+    key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjUxYTcxYWU2LTA2MDgtNGYwOC04NjY1LTdmMzNhZGU5YjU2OCIsImlhdCI6MTY4NTA4MzcwOSwic3ViIjoiZGV2ZWxvcGVyL2FhY2Q5MTVjLTNmMTktNzY4Ni05NmRmLWVlM2U1OWVhODdjYSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNTguOTkuMS4yNCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.WxIJcZgO43QHOwM_6ugNy5E6ohqT2BSEPBGMQAh6qag9JJztVcFZZ8hG2I3cJTWBDnfncgp9wgfZiPfozOweXg'
     payload = {'Authorization': 'Bearer ' + key}
     url = url_base + "globaltournaments"
 
@@ -94,7 +95,7 @@ def buscador3():
 @app.route('/jugadores', methods=['GET', 'POST'])
 def jugadores():
     url_base = "https://api.clashroyale.com/v1/"
-    key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjFmN2U4ZTJiLTljMDgtNGNhNC05NzEwLWJiZDE4NmViNjNjYSIsImlhdCI6MTY4NTA0MDU1OCwic3ViIjoiZGV2ZWxvcGVyL2FhY2Q5MTVjLTNmMTktNzY4Ni05NmRmLWVlM2U1OWVhODdjYSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI4MC4zMS43Mi4xMDUiXSwidHlwZSI6ImNsaWVudCJ9XX0.BkRZSsJMMZY5g0cPVjb0MtmJxeKc2AkRsw0KXvVN4Q6_UtV9rCbXa0PfOMoW2CQjjSINNnIWmRmGMgCNHw-k7w'
+    key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjUxYTcxYWU2LTA2MDgtNGYwOC04NjY1LTdmMzNhZGU5YjU2OCIsImlhdCI6MTY4NTA4MzcwOSwic3ViIjoiZGV2ZWxvcGVyL2FhY2Q5MTVjLTNmMTktNzY4Ni05NmRmLWVlM2U1OWVhODdjYSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNTguOTkuMS4yNCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.WxIJcZgO43QHOwM_6ugNy5E6ohqT2BSEPBGMQAh6qag9JJztVcFZZ8hG2I3cJTWBDnfncgp9wgfZiPfozOweXg'
     payload = {'Authorization': 'Bearer ' + key}
     url = url_base + "locations/global/seasons/2022-01/rankings/players"
 
@@ -103,19 +104,19 @@ def jugadores():
         data = r.json()
         topjugador = data.get("items")
         if topjugador:
-            jugadores = [jugador for jugador in topjugador]
+            jugadores = sorted(topjugador, key=lambda jugador: jugador['rank'])[:50]
         else:
-            jugadores = None
+            jugadores = 'Jugador no encontrado'
     else:
-        jugadores = None
-        print("resultado en la búsqueda:", r.status_code)
+        error = 'Jugador no encontrado. Prueba con otro nombre válido'
+        return render_template("jugadores.html", error=error)
 
     return render_template('jugadores.html', jugadores=jugadores)
 
 @app.route('/clanes', methods=['GET', 'POST'])
 def clanes():
     url_base = "https://api.clashroyale.com/v1/"
-    key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjFmN2U4ZTJiLTljMDgtNGNhNC05NzEwLWJiZDE4NmViNjNjYSIsImlhdCI6MTY4NTA0MDU1OCwic3ViIjoiZGV2ZWxvcGVyL2FhY2Q5MTVjLTNmMTktNzY4Ni05NmRmLWVlM2U1OWVhODdjYSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI4MC4zMS43Mi4xMDUiXSwidHlwZSI6ImNsaWVudCJ9XX0.BkRZSsJMMZY5g0cPVjb0MtmJxeKc2AkRsw0KXvVN4Q6_UtV9rCbXa0PfOMoW2CQjjSINNnIWmRmGMgCNHw-k7w'
+    key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjUxYTcxYWU2LTA2MDgtNGYwOC04NjY1LTdmMzNhZGU5YjU2OCIsImlhdCI6MTY4NTA4MzcwOSwic3ViIjoiZGV2ZWxvcGVyL2FhY2Q5MTVjLTNmMTktNzY4Ni05NmRmLWVlM2U1OWVhODdjYSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNTguOTkuMS4yNCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.WxIJcZgO43QHOwM_6ugNy5E6ohqT2BSEPBGMQAh6qag9JJztVcFZZ8hG2I3cJTWBDnfncgp9wgfZiPfozOweXg'
     payload = {'Authorization': 'Bearer ' + key}
     url = url_base + "locations/57000218/rankings/clans"
 
@@ -124,14 +125,15 @@ def clanes():
         data = r.json()
         clanes = data.get("items")
         if clanes:
-            clans = [clan for clan in clanes]
+            clans = sorted(clanes, key=lambda clan: clan ['rank'])[:50]
         else:
-            clans = None
+            clans = 'Clan no encontrado'
     else:
-        clans = None
-        print("resultado en la búsqueda:", r.status_code)
+        error = 'Clan no encontrado. Prueba con otro nombre válido'
+        return render_template("clanes.html", error=error)
 
-    return render_template('clanes.html', clans=clans)
+    return render_template('clanes.html',clans=clans)
+
 
 @app.route('/torneos', methods=['GET', 'POST'])
 def torneos():
@@ -139,3 +141,4 @@ def torneos():
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 5000, debug=True)
+
